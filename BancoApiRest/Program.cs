@@ -6,28 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Registrar servicios para inyección de dependencias
+// Registrar servicios para inyecciÃ³n de dependencias
+// Usamos Singleton para que los datos en memoria persistan durante el ciclo de vida de la app
 builder.Services.AddSingleton<IClienteService, ClienteService>();
 builder.Services.AddSingleton<IPagoService, PagoService>();
 builder.Services.AddSingleton<IBitacoraService, BitacoraService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+{{ ... }}
