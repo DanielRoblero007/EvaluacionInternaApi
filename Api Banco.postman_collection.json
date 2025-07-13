@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "51c8a15f-7431-4c60-95ab-99f8807d0441",
+		"name": "Api Banco",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45820001",
+		"_collection_link": "https://kenzo-3622980.postman.co/workspace/Kenzo's-Workspace~e1568d58-bf28-4422-8849-881ebbb6a90a/collection/45820001-51c8a15f-7431-4c60-95ab-99f8807d0441?action=share&source=collection_link&creator=45820001"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cliente_Nombre\": \"Daniel\",\r\n  \"cliente_Apellido\": \"Roblero\",\r\n  \"cliente_DPI\": \"1597538524569\",\r\n  \"cliente_Direccion\": \"Guatemala, Guatemala\",\r\n  \"cliente_Telefono\": \"78961532\",\r\n  \"cliente_Email\": \"Daniel.Roblero@email.com\",\r\n  \"cliente_FechaNacimiento\": \"2001-10-14\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7142/cliente",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7142",
+					"path": [
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:7142/cliente/1597538524569",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7142",
+					"path": [
+						"cliente",
+						"1597538524569"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pago",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cuenta_ID_Origen\": 1,\r\n  \"pago_CuentaDestino\": \"002-580-1234567890\",\r\n  \"pago_Monto\": 150.75,\r\n  \"pago_Concepto\": \"Pago de servicio de internet\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7142/Pago",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7142",
+					"path": [
+						"Pago"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pago",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:7142/Pago/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7142",
+					"path": [
+						"Pago",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

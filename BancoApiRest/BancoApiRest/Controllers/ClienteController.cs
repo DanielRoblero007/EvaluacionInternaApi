@@ -71,7 +71,7 @@ public class ClienteController : ControllerBase
             _bitacoraService.Registrar($"Error al crear cliente: {ex.Message}");
             if (ex.Message.Contains("DPI ya se encuentra registrado"))
             {
-                return Conflict(new { mensaje = ex.Message });
+                return Conflict(new { mensaje = ex.Message }); // Conflicto por DPI duplicado
             }
             return StatusCode(500, new { mensaje = "Ocurrió un error al crear el cliente.", detalle = ex.Message });
         }
