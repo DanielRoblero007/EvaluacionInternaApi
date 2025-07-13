@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace BancoApiRest.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-// Este controlador maneja las operaciones relacionadas con los pagos
+[Route("api/[controller]")]
 public class PagoController : ControllerBase
 {
+    // Este controlador maneja las operaciones relacionadas con los pagos
     private readonly IPagoService _pagoService;
     private readonly IBitacoraService _bitacoraService;
 
@@ -19,18 +19,45 @@ public class PagoController : ControllerBase
         _bitacoraService = bitacoraService;
     }
 
-    // Endpoint para realizar un pago
+    // Endpoint para obtener todos los pagos
+    [HttpGet]
+    public IActionResult GetPagos()
+    {
+        try
+        {
+            var pagos = _pagoService.ObtenerPagos();
+            _bitacoraService.Registrar("Consulta de todos los pagos realizada.");
+            return Ok(pagos);
+        }
+        catch (Exception ex)
+        {
+            _bitacoraService.Registrar($"Error al obtener pagos: {ex.Message}");// Registro del error en la bitácora
+            return StatusCode(500, new { mensaje = "Ocurrió un error al obtener los pagos.", detalle = ex.Message });
+        }
+    }
+
+    // Endpoint para crear un nuevo pago
     [HttpPost]
     public IActionResult PostPago([FromBody] Pago nuevoPago)
     {
-        if (nuevoPago == null)
+        // Validación del modelo recibido
+        try
         {
-            return BadRequest("Datos del pago no pueden ser nulos.");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            // Validación de campos obligatorios
+            var pagoRealizado = _pagoService.InsertarPago(nuevoPago);
+            _bitacoraService.Registrar($"Se creó un nuevo pago por el monto de {pagoRealizado.Pago_Monto}");
+
+            return Ok(new { mensaje = "Pago realizado exitosamente." });
         }
-
-        var pagoRealizado = _pagoService.RealizarPago(nuevoPago);
-        _bitacoraService.Registrar($"Se ha creado el pago, monto de: {pagoRealizado.Pago_Monto} Cuenta origen: {pagoRealizado.Cuenta_ID_Origen} Cuenta Destino; {pagoRealizado.Pago_CuentaDestino}");
-
-        return Ok(pagoRealizado);
+        // Manejo de excepciones
+        catch (Exception ex)
+        {
+            _bitacoraService.Registrar($"Error al procesar pago: {ex.Message}");// Registro del error en la bitácora
+            return StatusCode(500, new { mensaje = "Ocurrió un error al procesar el pago.", detalle = ex.Message });
+        }
     }
 }
