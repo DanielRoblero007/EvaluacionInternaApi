@@ -101,3 +101,4 @@ add Singleton.
 ¿Por que usamos el Singleton?
 Ya que estamos manejando memoria en lista, esto ayudara a que funcione bien la simulacion, porque en cada llamda API, se Esta
 guardando, para poder Insertar o Consultar, asi que mientras la App esta en ejecucion guardara todo lo que vamos haciendo.
+
